@@ -40,6 +40,6 @@
 <p>Bonjour <span th:text="${firstName}"></span> <span th:text="${lastName}"></span>,</p>
 <p>Nous vous remercions de votre inscription.</p>
 <p>Pour finaliser votre adhésion, veuillez cliquer sur le lien ci-dessous pour vérifier votre adresse e-mail :</p>
-<p><a href="#" th:href="@{|${urlPrefix}/user/action/validation/email/${verificationLink}|}" target="_blank">Lien de vérification</a></p>
+<p><a href="#" th:href="@{|${urlPrefix}/user/action/validation/${verificationLink}|}" target="_blank">Lien de vérification</a></p>
 </body>
 </html>

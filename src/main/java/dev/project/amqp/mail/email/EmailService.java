@@ -3,7 +3,7 @@ package dev.project.amqp.mail.email;
 import dev.project.amqp.mail.consumer.model.EmailMessage;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import org.apache.logging.log4j.Logger;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -19,6 +19,9 @@ public class EmailService {
 
   @Value("${app.urlPrefix}")
   private String urlPrefix;
+
+  private static final Logger logger = Logger.getLogger(EmailService.class.getName());
+
 
   public EmailService(JavaMailSender emailSender, TemplateEngine templateEngine) {
     this.emailSender = emailSender;
@@ -39,7 +42,8 @@ public class EmailService {
       helper.setText(emailContent, true);
 
       emailSender.send(message);
-    } catch (MessagingException ignored) {
+    } catch (MessagingException e) {
+      logger.warning(e.getMessage());
     }
   }
 
@@ -47,7 +51,7 @@ public class EmailService {
     Context context = new Context();
     context.setVariable("firstName", emailMessage.firstname());
     context.setVariable("lastName", emailMessage.lastname());
-    context.setVariable("verificationLink", emailMessage.email());
+    context.setVariable("verificationLink", emailMessage.jwt());
     context.setVariable("urlPrefix", urlPrefix);
     return context;
   }

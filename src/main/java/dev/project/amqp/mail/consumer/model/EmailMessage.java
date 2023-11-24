@@ -8,7 +8,10 @@ public record EmailMessage(
     @JsonProperty("lastname")
     String lastname,
     @JsonProperty("email")
-    String email
+    String email,
+    @JsonProperty("jwt")
+    String jwt
+
 ) {
 
 }
