@@ -1,0 +1,27 @@
+version: "3.6"
+services:
+  mail-sender:
+    build:
+      context: ./
+    depends_on:
+      - mailhog
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_MAIL_HOST=mailhog
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - APP_URL_PREFIX=http://registration-api:8080
+    command: [ "./wait-for-it.sh", "rabbitmq:5672", "java", "-jar", "mail-sender.jar" ]
+    networks:
+      - amqp-network
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+    networks:
+      - amqp-network
+
+networks:
+  amqp-network:
+    external: true
