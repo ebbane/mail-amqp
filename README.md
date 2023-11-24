@@ -78,6 +78,10 @@ Instructions à suivre (conseillé) pour le lancement du projet en local.
 
 #### Avec docker
 
+Avant de procéder au lancement du docker-compose, veuillez lancer le docke-compose de l'application
+associé disponible ici : https://github.com/ebbane/registration-amqp
+
+
 1. Lancer docker sur son environnement
 2. Cloner le repo (ou dézipper le dossier)
    ```sh
